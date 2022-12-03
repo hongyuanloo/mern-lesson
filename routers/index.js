@@ -19,7 +19,10 @@ require("../config/passport")(passport);
 app.options("*", cors());
 app.use((req, res, next) => {
   // res.header("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", [
+    "http://localhost:3000",
+    "https://react-app-for-mern.vercel.app",
+  ]);
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
@@ -53,7 +56,7 @@ app.post("/generatepayroll/:month/:year", async (req, res) => {
   await generatePayroll(month, year);
   res.sendStatus(httpStatus.OK);
 });
-
+//"process.env.PORT" is for use in cyclic, no need to defite it in .env
 app.listen(process.env.PORT || 3001, () => {
   console.log(`listening to port ${process.env.PORT || 3001}`);
 });

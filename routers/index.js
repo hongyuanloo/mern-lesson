@@ -19,10 +19,12 @@ require("../config/passport")(passport);
 app.options("*", cors());
 app.use((req, res, next) => {
   // res.header("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Origin", [
-    "http://localhost:3000",
-    "https://react-app-for-mern.vercel.app",
-  ]);
+  // "http://localhost:3000",
+  // "https://react-app-for-mern.vercel.app",
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    process.env.FRONT_END_URL || "http://localhost:3000"
+  );
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, OPTIONS, PUT, PATCH, DELETE"

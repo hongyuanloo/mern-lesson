@@ -10,10 +10,28 @@ const { generatePayroll } = require("../services/payroll-service");
 const httpStatus = require("http-status");
 const passport = require("passport");
 const session = require("express-session");
+const cors = require("cors");
 
 require("../config/passport")(passport);
 
 //Middleware
+//https://medium.com/@dtkatz/3-ways-to-fix-the-cors-error-and-how-access-control-allow-origin-works-d97d55946d9
+app.options("*", cors());
+app.use((req, res, next) => {
+  // res.header("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  next();
+});
 app.use(express.json());
 app.use(session({ secret: "WDI-GENERAL-ASSEMBLY-EXPRESS" }));
 app.use(passport.initialize());
@@ -36,6 +54,6 @@ app.post("/generatepayroll/:month/:year", async (req, res) => {
   res.sendStatus(httpStatus.OK);
 });
 
-app.listen(3000, () => {
-  console.log("listening to port 3000");
+app.listen(3001, () => {
+  console.log("listening to port 3001");
 });

@@ -1,6 +1,17 @@
 const { Show } = require("../models");
 const httpStatus = require("http-status");
 
+/* e.g commands in POSTMAN
+-POST: http://localhost:3001/shows/
+-Body, JSON:
+{
+"title":"test to DELETE",
+"venue":"Esplanade theatre33",
+"start":"2022-12-24T14:00:00Z",
+"duration":10,
+"performers":["6385e2cf41e0b9d346d0858c","6385e2cf41e0b9d346d0858d"]
+}
+*/
 const create = async (req, res) => {
   try {
     const result = await Show.create(req.body);
@@ -44,7 +55,17 @@ const deleteOne = async (req, res) => {
   }
 };
 
+/* e.g commands in POSTMAN
+-PUT: http://localhost:3001/shows/6385e2ce41e0b9d346d08582
+-Body, JSON:
+{
+ "performers":["6385e2cf41e0b9d346d0858c","6385e2cf41e0b9d346d0858d"]
+}
+-this would update the performers with two ids from Comedians
+*/
 const updateOne = async (req, res) => {
+  // console.log(req.body);
+  // console.log(req.params.id);
   try {
     const result = await Show.updateOne({ _id: req.params.id }, req.body);
     res.json(result);

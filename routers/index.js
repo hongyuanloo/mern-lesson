@@ -54,6 +54,6 @@ app.post("/generatepayroll/:month/:year", async (req, res) => {
   res.sendStatus(httpStatus.OK);
 });
 
-app.listen(3001, () => {
-  console.log("listening to port 3001");
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`listening to port ${process.env.PORT || 3001}`);
 });

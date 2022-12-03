@@ -7,7 +7,9 @@ const Rates = require("./rates");
 const Account = require("./accounts");
 
 // Config
-const mongoURI = "mongodb://localhost:27017/learn";
+// const mongoURI = "mongodb://localhost:27017/learn"; //connect to local mongodb
+const mongoURI = process.env.MONGO_URL; // connect to atlas db
+
 const db = mongoose.connection;
 
 // Connect
